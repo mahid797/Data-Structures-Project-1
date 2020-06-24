@@ -1,20 +1,24 @@
+import java.io.*;
+
 public class Test{
 
-  public static void main(String[] args)throws Exception
+  public static void main(String[] args) throws Exception
   {
+
     int testPart = Integer.parseInt(args[0]);
-    
+
     Assignment1 a1 = new Assignment1();
     int n = 8;
     int[][] matrix;
-    
+
     if(testPart==1){
       matrix=a1.initMatrix(n);
       a1.printMatrix(n, matrix);
     }
     else if(testPart==2){
-      matrix=a1.readMatrix("matrix1.txt",n);
-      a1.printMatrix(n,matrix);
+//      matrix=a1.readMatrix("../matrix1.txt",n);
+//      a1.printMatrix(n,matrix);
+      a1.readMatrix("../matrix1.txt",n);
     }
     else if(testPart==3){
       int nextPart = Integer.parseInt(args[1]);
