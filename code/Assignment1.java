@@ -11,9 +11,29 @@ public class Assignment1{
   
   public int[][] sum(int[][] A, int[][] B, int x1, int y1, int x2, int y2, int n)
   {
-    int[][] arr2 = new int[0][];
+    int[][] arr = new int[n][n];
 
-    return arr2;
+    int m2_row = x2;
+    int m2_column = y2;
+
+    int m1_row = x1;
+    int m1_column = y1;
+
+    for(int i = 0; i < n; i++) {
+      m2_column = y2;
+      m1_column = y1;
+
+      for(int j = 0; j < n; j++) {
+        arr[i][j] = A[m1_row][m1_column] + B[m2_row][m2_column];
+
+        m2_column++;
+        m1_column++;
+      }
+      m2_row++;
+      m1_row++;
+    }
+
+    return arr;
   }
   
   public int[][] sub(int[][] A, int[][] B, int x1, int y1, int x2, int y2, int n)
