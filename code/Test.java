@@ -16,9 +16,9 @@ public class Test{
       a1.printMatrix(n, matrix);
     }
     else if(testPart==2){
-//      matrix=a1.readMatrix("../matrix1.txt",n);
-//      a1.printMatrix(n,matrix);
-      a1.readMatrix("../matrix1.txt",n);
+      matrix=a1.readMatrix("../matrix2.txt",n);
+      a1.printMatrix(n,matrix);
+
     }
     else if(testPart==3){
       int nextPart = Integer.parseInt(args[1]);

@@ -47,28 +47,27 @@ public class Assignment1{
     }
   }
   
-//  public int[][] readMatrix(String filename, int n) throws Exception
-//  {
-//    int[][] arr2 = new int[n][n];
-//
-//    File file = new File(filename);
-//
-//    BufferedReader br = new BufferedReader(new FileReader(file));
-//
-//    String st;
-//
-//    for (int i = 0; i < n; i++) {
-//      int j =0;
-//      while ((st = br.readLine()) != null) {
-//        String[] strArr = st.split(" ", n);
-//
-//        arr2[i][j] = strArr[]
-//
-//      }
-//    }
-//
-//
-//    return arr2;
-//  }
+  public int[][] readMatrix(String filename, int n) throws Exception
+  {
+    int[][] arr = new int[n][n];
+
+    File file = new File(filename);
+
+    BufferedReader br = new BufferedReader(new FileReader(file));
+
+    String st;
+
+    int i = 0;
+    while ((st = br.readLine()) != null) {
+      String[] strArr = st.split(" ", n);
+
+      for(int j = 0; j < n; j ++) {
+        arr[i][j] = Integer.parseInt(strArr[j]);
+      }
+      i++;
+    }
+
+    return arr;
+  }
   
 }
