@@ -12,7 +12,6 @@ public class Assignment1{
 
     // Base Case when n=1
     if (size == 1) {
-
       arr[0][0] = A[0][0]*B[0][0];
       return arr;
     }
@@ -35,12 +34,15 @@ public class Assignment1{
     int[][] m3 = denseMatrixMult(sum(arr, A, 0,0,size/2,size/2, size),
                                   sub(B, B, size/2, 0, 0, 0, size),
                                     size/2); // F(n/2);
+    //m4 = [A00 + A01][B11];
     int[][] m4 = denseMatrixMult(sum(A, A, 0, 0, 0, size/2, size),
                                   sum(arr, B, 0,0,size/2,size/2, size),
                                   size/2); // F(n/2);
+    //m5 = [A10 + A00][B00 + B01];
     int[][] m5 = denseMatrixMult(sub(A, A, size/2, 0, 0, 0, size),
                                   sum(B, B, 0, 0, 0, size/2, size),
                                   size/2); //F(n/2);
+    //m6 = [A01 - A11][B10, B11];
     int[][] m6 = denseMatrixMult(sub(A, A, 0, size/2, size/2, size/2, size),
                                   sum(B, B, size/2, 0, size/2, size/2, size),
                                   size/2);
@@ -61,7 +63,33 @@ public class Assignment1{
                   sum(m2, m5, 0,0,0,0, size),
               0,0,0,0, size);
 
+    //Reconstruct arr using the cnm variables
+    for(int i = 0; i < size; i++) {
+      for(int j = 0; j < size; j++) {
 
+        //Different cases:
+        // c00 <--> (i < size/2 && j < size/2)
+        if(i < size/2 && j < size/2) {
+          arr[i][j] = c00[i][j];
+        }
+
+        // c01 <--> (i < size/2 && j >= size/2)
+        if(i < size/2 && j >= size/2) {
+          arr[i][j] = c01[i][j - size/2];
+        }
+
+        // c10 <--> (i >= size/2 && j < size/2)
+        if(i >= size/2 && j < size/2) {
+          arr[i][j] = c10[i + size/2][j];
+        }
+
+        // c11 <--> (i >= size/2 && j >= size/2)
+        if(i >= size/2 && j >= size/2) {
+          arr[i][j] = c10[i + size/2][j + size/2];
+        }
+
+      }
+    }
 
 
     return arr;
