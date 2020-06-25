@@ -1,3 +1,6 @@
+//EECS 2011 - SU2020
+//By: Adrian Angara 216090532
+
 public class Test{
 
   public static void main(String[] args) throws Exception
@@ -38,10 +41,14 @@ public class Test{
       }
     }
     else{
+//      int[][] matrix1=a1.readMatrix("matrix1.txt",n);
+//      int[][] matrix2=a1.readMatrix("matrix2.txt",n);
+//      int[][] resultingMatrix=a1.denseMatrixMult(matrix1, matrix2, n);
+//      a1.printMatrix(n,resultingMatrix);
+
       int[][] matrix1=a1.readMatrix("matrix1.txt",n);
       int[][] matrix2=a1.readMatrix("matrix2.txt",n);
-      int[][] resultingMatrix=a1.denseMatrixMult(matrix1, matrix2, n);
-      a1.printMatrix(n,resultingMatrix);
+      a1.denseMatrixMult(matrix1, matrix2, n);
     }
   }
 }

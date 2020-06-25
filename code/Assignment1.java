@@ -1,12 +1,51 @@
+//EECS 2011 - SU2020
+//By: Adrian Angara 216090532
+
 import java.io.*;
 
 public class Assignment1{
   
   public int[][] denseMatrixMult(int[][] A, int[][] B, int size)
   {
-    int[][] arr2 = new int[0][];
+    //Pre-Condition
+    int[][] arr = new int[size][size];
 
-    return arr2;
+    // Base Case when n=1
+    if (size == 1) {
+
+      arr[0][0] = A[0][0]*B[0][0];
+      return arr;
+    }
+
+    // Recursive Case when n>1
+    //Define mn; nE[0,6];
+    //m0 = [A00 + A11][B00 + B11];
+    int[][] m0 = denseMatrixMult(sum(A, A, 0, 0, size/2, size/2, size),
+                                  sum(B, B, 0, 0, size/2, size/2, size),
+                                  size/2);  // F(n/2);
+    int[][] m1 = denseMatrixMult(sum(A, A, 0, size/2, size/2, size/2, size),
+                                  sum(arr, B, 0,0,0,0, size),
+                                size/2); //F(n/2);
+    int[][] m2 = denseMatrixMult(sum(arr, A, 0,0,0,0, size),
+                                  sub(B, B, 0, size/2, size/2, size/2, size),
+                                  size/2); //F(n/2);
+    int[][] m3 = denseMatrixMult(sum(arr, A, 0,0,0,0, size),
+                                  sub(B, B, size/2, 0, 0, 0, size),
+                                    size/2); // F(n/2);
+    int[][] m4 = denseMatrixMult(sum(A, A, 0, 0, 0, size/2, size),
+                                  sum(arr, B, 0,0,size/2,size/2, size),
+                                  size/2); // F(n/2);
+    int[][] m5 = denseMatrixMult(sub(A, A, size/2, 0, 0, 0, size),
+                                  sum(B, B, 0, 0, 0, size/2, size),
+                                  size/2); //F(n/2);
+    int[][] m6 = denseMatrixMult(sub(A, A, 0, size/2, size/2, size/2, size),
+                                  sum(B, B, size/2, 0, size/2, size/2, size),
+                                  size/2);
+
+
+
+
+    return arr;
   }
   
   public int[][] sum(int[][] A, int[][] B, int x1, int y1, int x2, int y2, int n)
