@@ -23,13 +23,16 @@ public class Assignment1{
     int[][] m0 = denseMatrixMult(sum(A, A, 0, 0, size/2, size/2, size),
                                   sum(B, B, 0, 0, size/2, size/2, size),
                                   size/2);  // F(n/2);
+    //m1 = [A10 + A11][B00];
     int[][] m1 = denseMatrixMult(sum(A, A, 0, size/2, size/2, size/2, size),
                                   sum(arr, B, 0,0,0,0, size),
                                 size/2); //F(n/2);
+    //m2 = [A00][B01 - B11];
     int[][] m2 = denseMatrixMult(sum(arr, A, 0,0,0,0, size),
                                   sub(B, B, 0, size/2, size/2, size/2, size),
                                   size/2); //F(n/2);
-    int[][] m3 = denseMatrixMult(sum(arr, A, 0,0,0,0, size),
+    //m3 = [A11][B10 - B00];
+    int[][] m3 = denseMatrixMult(sum(arr, A, 0,0,size/2,size/2, size),
                                   sub(B, B, size/2, 0, 0, 0, size),
                                     size/2); // F(n/2);
     int[][] m4 = denseMatrixMult(sum(A, A, 0, 0, 0, size/2, size),
@@ -41,6 +44,22 @@ public class Assignment1{
     int[][] m6 = denseMatrixMult(sub(A, A, 0, size/2, size/2, size/2, size),
                                   sum(B, B, size/2, 0, size/2, size/2, size),
                                   size/2);
+
+    // Define cnm; n,mE{0,1};
+    // c00 = m0 = m3 - m4 + m6;
+    int[][] c00 = sub(sum(m0, m3, 0,0,0,0, size),
+                      sum(m4, m6, 0,0,0,0, size),
+                  0,0,0,0, size);
+    // c01 = m2 + m4;
+    int[][] c01 = sum(m2, m4, 0,0,0,0,size);
+
+    // c10 = m1 + m3;
+    int[][] c10 = sum(m1, m3, 0,0,0,0,size);
+
+    // c11 = m0 - m1 + m2 + m5
+    int[][] c11 = sum(sub(m0, m1, 0,0,0,0, size),
+                  sum(m2, m5, 0,0,0,0, size),
+              0,0,0,0, size);
 
 
 
