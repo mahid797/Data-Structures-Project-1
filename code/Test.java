@@ -39,16 +39,6 @@ public class Test{
         a1.printMatrix(n,matrix2);
         a1.printMatrix(3,sumMatrix);
       }
-    } else if (testPart == 7) {
-
-      //FOR TESTING PURPOSES ONLY
-      int size = n/2;
-
-      int[][] matrix1=a1.readMatrix("testingA00.txt",size);
-      int[][] matrix2=a1.readMatrix("testingB00.txt",size);
-      int[][] resultingMatrix=a1.denseMatrixMult(matrix1, matrix2, size);
-      a1.printMatrix(size,resultingMatrix);
-
     }
     else {
       int[][] matrix1=a1.readMatrix("matrix1.txt",n);

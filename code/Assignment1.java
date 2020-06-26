@@ -43,9 +43,10 @@ public class Assignment1{
 
     // Define cnm; n,mE{0,1};
     // c00 = m0 + m3 - m4 + m6;
-    int[][] c00 = sub(sum(m0, m3, 0,0,0,0, half_n),
-                      sum(m4, m6, 0,0,0,0, half_n),
-                  0,0,0,0, half_n);
+    int[][] c00_op1 = sum(m0, m3, 0,0,0,0, half_n);
+    int[][] c00_op2 = sub(c00_op1, m4, 0, 0, 0, 0, half_n);
+    int[][] c00 = sum(c00_op2, m6, 0, 0, 0, 0, half_n);
+
     // c01 = m2 + m4;
     int[][] c01 = sum(m2, m4, 0,0,0,0, half_n);
 
@@ -53,9 +54,9 @@ public class Assignment1{
     int[][] c10 = sum(m1, m3, 0,0,0,0, half_n);
 
     // c11 = m0 - m1 + m2 + m5
-    int[][] c11 = sum(sub(m0, m1, 0,0,0,0, half_n),
-                  sum(m2, m5, 0,0,0,0, half_n),
-              0,0,0,0, half_n);
+    int[][] c11_op1 = sub(m0, m1, 0,0,0,0, half_n);
+    int[][] c11_op2 = sum(c11_op1, m2, 0, 0, 0, 0, half_n);
+    int[][] c11 = sum(c11_op2, m5, 0, 0, 0, 0, half_n);
 
     //Reconstruct arr using the cnm variables // O(g(n)) = n^2
     for(int i = 0; i < size; i++) {
