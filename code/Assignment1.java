@@ -8,7 +8,8 @@ public class Assignment1{
   public int[][] denseMatrixMult(int[][] A, int[][] B, int size)
   {
     //Pre-Condition
-    int[][] arr = new int[size][size];
+    int[][] arr = initMatrix(size); // O(h(n)) = n^2
+    int half_n = size/2;
 
     // Base Case when n=1
     if (size == 1) {
@@ -16,76 +17,69 @@ public class Assignment1{
       return arr;
     }
 
-    // Recursive Case when n>1
+    // Recursive Case when n>1; f(n) = 7F(n/2);
     //Define mn; nE[0,6];
     //m0 = [A00 + A11][B00 + B11];
-    int[][] m0 = denseMatrixMult(sum(A, A, 0, 0, size/2, size/2, size),
-                                  sum(B, B, 0, 0, size/2, size/2, size),
-                                  size/2);  // F(n/2);
+    int[][] m0 = denseMatrixMult(sum(A, A, 0, 0, half_n, half_n, half_n),
+                                  sum(B, B, 0, 0, half_n, half_n, half_n),  half_n);  // F(n/2);
     //m1 = [A10 + A11][B00];
-    int[][] m1 = denseMatrixMult(sum(A, A, 0, size/2, size/2, size/2, size),
-                                  sum(arr, B, 0,0,0,0, size),
-                                size/2); //F(n/2);
+    int[][] m1 = denseMatrixMult(sum(A, A, half_n, 0, half_n, half_n, half_n),
+                                  sum(arr, B, 0,0,0,0, half_n),  half_n); //F(n/2);
     //m2 = [A00][B01 - B11];
-    int[][] m2 = denseMatrixMult(sum(arr, A, 0,0,0,0, size),
-                                  sub(B, B, 0, size/2, size/2, size/2, size),
-                                  size/2); //F(n/2);
+    int[][] m2 = denseMatrixMult(sum(arr, A, 0,0,0,0, half_n),
+                                  sub(B, B, 0, half_n, half_n, half_n, half_n),  half_n); //F(n/2);
     //m3 = [A11][B10 - B00];
-    int[][] m3 = denseMatrixMult(sum(arr, A, 0,0,size/2,size/2, size),
-                                  sub(B, B, size/2, 0, 0, 0, size),
-                                    size/2); // F(n/2);
+    int[][] m3 = denseMatrixMult(sum(arr, A, 0,0, half_n, half_n, half_n),
+                                  sub(B, B, half_n, 0, 0, 0, half_n),  half_n); // F(n/2);
     //m4 = [A00 + A01][B11];
-    int[][] m4 = denseMatrixMult(sum(A, A, 0, 0, 0, size/2, size),
-                                  sum(arr, B, 0,0,size/2,size/2, size),
-                                  size/2); // F(n/2);
-    //m5 = [A10 + A00][B00 + B01];
-    int[][] m5 = denseMatrixMult(sub(A, A, size/2, 0, 0, 0, size),
-                                  sum(B, B, 0, 0, 0, size/2, size),
-                                  size/2); //F(n/2);
-    //m6 = [A01 - A11][B10, B11];
-    int[][] m6 = denseMatrixMult(sub(A, A, 0, size/2, size/2, size/2, size),
-                                  sum(B, B, size/2, 0, size/2, size/2, size),
-                                  size/2);
+    int[][] m4 = denseMatrixMult(sum(A, A, 0, 0, 0, half_n, half_n),
+                                  sum(arr, B, 0,0, half_n, half_n, half_n),  half_n); // F(n/2);
+    //m5 = [A10 - A00][B00 + B01];
+    int[][] m5 = denseMatrixMult(sub(A, A, half_n, 0, 0, 0, half_n),
+                                  sum(B, B, 0, 0, 0, half_n, half_n),  half_n); //F(n/2);
+    //m6 = [A01 - A11][B10 + B11];
+    int[][] m6 = denseMatrixMult(sub(A, A, 0, half_n, half_n, half_n, half_n),
+                                  sum(B, B, half_n, 0, half_n, half_n, half_n),  half_n);//F(n/2);
 
     // Define cnm; n,mE{0,1};
-    // c00 = m0 = m3 - m4 + m6;
-    int[][] c00 = sub(sum(m0, m3, 0,0,0,0, size),
-                      sum(m4, m6, 0,0,0,0, size),
-                  0,0,0,0, size);
+    // c00 = m0 + m3 - m4 + m6;
+    int[][] c00 = sub(sum(m0, m3, 0,0,0,0, half_n),
+                      sum(m4, m6, 0,0,0,0, half_n),
+                  0,0,0,0, half_n);
     // c01 = m2 + m4;
-    int[][] c01 = sum(m2, m4, 0,0,0,0,size);
+    int[][] c01 = sum(m2, m4, 0,0,0,0, half_n);
 
     // c10 = m1 + m3;
-    int[][] c10 = sum(m1, m3, 0,0,0,0,size);
+    int[][] c10 = sum(m1, m3, 0,0,0,0, half_n);
 
     // c11 = m0 - m1 + m2 + m5
-    int[][] c11 = sum(sub(m0, m1, 0,0,0,0, size),
-                  sum(m2, m5, 0,0,0,0, size),
-              0,0,0,0, size);
+    int[][] c11 = sum(sub(m0, m1, 0,0,0,0, half_n),
+                  sum(m2, m5, 0,0,0,0, half_n),
+              0,0,0,0, half_n);
 
-    //Reconstruct arr using the cnm variables
+    //Reconstruct arr using the cnm variables // O(g(n)) = n^2
     for(int i = 0; i < size; i++) {
       for(int j = 0; j < size; j++) {
 
         //Different cases:
-        // c00 <--> (i < size/2 && j < size/2)
-        if(i < size/2 && j < size/2) {
+        // c00 <--> (i < half_n && j < half_n)
+        if(i < half_n && j < half_n) {
           arr[i][j] = c00[i][j];
         }
 
-        // c01 <--> (i < size/2 && j >= size/2)
-        if(i < size/2 && j >= size/2) {
-          arr[i][j] = c01[i][j - size/2];
+        // c01 <--> (i  half_n && j >= half_n)
+        if(i < half_n && j >= half_n) {
+          arr[i][j] = c01[i][j - half_n];
         }
 
-        // c10 <--> (i >= size/2 && j < size/2)
-        if(i >= size/2 && j < size/2) {
-          arr[i][j] = c10[i + size/2][j];
+        // c10 <--> (i >= half_n && j < half_n)
+        if(i >= half_n && j < half_n) {
+          arr[i][j] = c10[i - half_n][j];
         }
 
-        // c11 <--> (i >= size/2 && j >= size/2)
-        if(i >= size/2 && j >= size/2) {
-          arr[i][j] = c10[i + size/2][j + size/2];
+        // c11 <--> (i >= half_n && j >= half_n)
+        if(i >= half_n && j >= half_n) {
+          arr[i][j] = c11[i - half_n][j - half_n];
         }
 
       }
