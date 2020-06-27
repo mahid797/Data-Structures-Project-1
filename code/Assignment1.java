@@ -17,7 +17,7 @@ public class Assignment1{
       return arr;
     }
 
-    // Recursive Case when n>1; f(n) = 7F(n/2);
+    // Recursive Case when n>1; f(n) = 7F(n/2) + 14n^2; O(f(n)) = ?;
     //Define mn; nE[0,6];
     //m0 = [A00 + A11][B00 + B11];
     int[][] m0 = denseMatrixMult(sum(A, A, 0, 0, half_n, half_n, half_n),
@@ -41,7 +41,7 @@ public class Assignment1{
     int[][] m6 = denseMatrixMult(sub(A, A, 0, half_n, half_n, half_n, half_n),
                                   sum(B, B, half_n, 0, half_n, half_n, half_n),  half_n);//F(n/2);
 
-    // Define cnm; n,mE{0,1};
+    // Define cnm; n,mE{0,1}; q(n) = 8n^2; O(q(n)) = n^2;
     // c00 = m0 + m3 - m4 + m6;
     int[][] c00_op1 = sum(m0, m3, 0,0,0,0, half_n);
     int[][] c00_op2 = sub(c00_op1, m4, 0, 0, 0, 0, half_n);
